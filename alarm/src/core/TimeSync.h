@@ -7,17 +7,17 @@
 /**
  * TimeManager configures the ESP32’s internal NTP client and provides methods to obtain the current time.
  * 
- * This module encapsulates the use of configTime() and getLocalTime() so that your application
+ * This module encapsulates the use of configTime() and getLocalTime() so that the application
  * can easily wait for time synchronization and then retrieve the current time in different formats.
  */
 class TimeSync {
   public:
     /**
      * Constructs a TimeManager with given NTP server settings and time offsets.
-     * @param ntpServer1        Primary NTP server (e.g., "pool.ntp.org").
-     * @param ntpServer2        Secondary NTP server (e.g., "time.nist.gov").
-     * @param gmtOffsetSec      GMT offset in seconds (e.g., 0 for GMT, or 3600 for GMT+1).
-     * @param daylightOffsetSec Daylight saving offset in seconds (usually 0 or 3600).
+     * @param ntpServer1        Primary NTP server.
+     * @param ntpServer2        Secondary NTP server.
+     * @param gmtOffsetSec      GMT offset in seconds.
+     * @param daylightOffsetSec Daylight saving offset in seconds.
      * @param maxRetries        Maximum number of retries to wait for synchronization (default is 10).
      */
     TimeSync(const char* ntpServer1, const char* ntpServer2, long gmtOffsetSec, int daylightOffsetSec, int maxRetries = 10);
@@ -40,7 +40,7 @@ class TimeSync {
     String getFormattedTime();
 
     /**
-     * Retrieves the current epoch time (seconds since Jan 1 1970).
+     * Retrieves the current epoch time.
      * @return A time_t value representing the current epoch time.
      */
     time_t getEpochTime();

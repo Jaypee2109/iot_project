@@ -26,7 +26,7 @@ bool TimeSync::sync() {
     return false;
   }
 
-  // Optionally, print the synchronized time.
+  // Print the synchronized time.
   Serial.println(&timeinfo, "Time synchronized: %A, %B %d %Y %H:%M:%S");
   return true;
 }
@@ -42,6 +42,6 @@ String TimeSync::getFormattedTime() {
 }
 
 time_t TimeSync::getEpochTime() {
-  // Returns the current epoch time. (Note: Ensure time is synchronized before calling.)
+  // Returns the current epoch time.
   return time(nullptr);
 }

@@ -14,9 +14,9 @@
 class AlarmConfig {
   public:
     /**
-     * @param scheduler      Reference to your AlarmScheduler instance.
-     * @param serverHost     The host (IP or domain) of your alarm‐config API.
-     * @param serverPort     Port to connect to (80 or 443).
+     * @param scheduler      Reference to AlarmScheduler instance.
+     * @param serverHost     The host (IP or domain) of alarm‐config API.
+     * @param serverPort     Port to connect to.
      * @param endpointPath   Full path (e.g. "/api/alarm").
      * @param refreshPeriod  How often (ms) to fetch a new alarm.
      */

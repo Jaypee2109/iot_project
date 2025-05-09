@@ -18,7 +18,6 @@ AlarmConfig::AlarmConfig(AlarmScheduler& scheduler,
 {}
 
 void AlarmConfig::begin() {
-  // Do an immediate fetch so we have an alarm in place right away.
   if (fetchAlarm()) {
     Serial.println("Initial alarm fetched.");
   } else {

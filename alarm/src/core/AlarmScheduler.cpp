@@ -31,9 +31,9 @@ void AlarmScheduler::checkAlarm() {
   uint8_t currentHour = timeinfo.tm_hour;
   uint8_t currentMinute = timeinfo.tm_min;
 
-  // If the current time equals the alarm time...
+  // If the current time equals the alarm time
   if ((currentHour == _alarmHour) && (currentMinute == _alarmMinute)) {
-    // ...and we haven’t yet triggered an alarm during the current minute...
+    // and haven’t yet triggered an alarm during the current minute
     if (!_alarmTriggered) {
       Serial.println("Alarm triggered!");
       _alarmTriggered = true;

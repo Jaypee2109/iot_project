@@ -1,7 +1,7 @@
 #include "DHTDriver.h"
 
 void DHTDriver::begin() {
-  // Initialize default I²C pins
+  // Initialize default pins
   Wire.begin();
   // Initialize the DHT20
   if (!_sensor.begin()) {

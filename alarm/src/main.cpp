@@ -10,8 +10,8 @@
 #include <core/AlarmConfig.h>
 
 
-// --- Global Variables for Alarm Input ---
-const uint8_t steps = 4;                // Number of steps in the sequence
+// Global Variables for Alarm Input
+const uint8_t steps = 4;                  // Number of steps in the sequence
 uint8_t correctSequence[steps] = {0};     // Holds the randomly generated correct pattern (LED indices)
 uint8_t userSequence[steps] = {0};        // Holds the player's input (LED indices)
 volatile uint8_t inputIndex = 0;          // Next free index for player input
@@ -27,8 +27,8 @@ const char* metricsPath = "/api/metrics";
 AlarmScheduler alarmScheduler;
 PuzzleGame puzzle(4, 4, 3 , 1000);
 
-// --- Button Callback ---
-// This callback is triggered on a release edge (by our ButtonDriver implementation)
+// Button Callback
+// This callback is triggered on a release edge
 void onButtonPressed(uint8_t buttonPin) {
   Serial.print("Button pressed on pin: ");
   Serial.println(buttonPin);
@@ -57,13 +57,13 @@ void onButtonPressed(uint8_t buttonPin) {
   }
 }
 
-// AWS Connection for config
+// AWS Connection config
 AlarmConfig alarmConfig(
   alarmScheduler,
   server,           // Domain         
   5000,             // port
-  "/api/alarm",    // endpoint path
-  60UL * 1000UL    // refresh every 60 seconds
+  "/api/alarm",     // endpoint path
+  60UL * 1000UL     // refresh every 60 seconds
 );
 
 // LEDDriver setup (Assuming LED order: index 0: YELLOW, 1: BLUE, 2: RED, 3: GREEN)
@@ -78,7 +78,7 @@ const int buzzer = 15;
 const int LEDC_CHANNEL = 0;
 BuzzerDriver buzzerDriver(buzzer, LEDC_CHANNEL);
 
-// ButtonDriver setup (using an initializer list)
+// ButtonDriver setup
 ButtonDriver buttonDriver({39, 38, 37, 36}, onButtonPressed);
 
 // DHTDriver setup
@@ -90,14 +90,14 @@ WifiModule wifi(WIFI_SSID, WIFI_PASS);
 // TimeSync setup
 const char* ntpServer1 = "pool.ntp.org";
 const char* ntpServer2 = "time.nist.gov";
-const long gmtOffset_sec = -28800;    // California Standard Time (-8 hours from UTC)
+const long gmtOffset_sec = -28800;      // California Standard Time (-8 hours from UTC)
 const int daylightOffset_sec = 3600;    // DST adjustment: +1 hour (effective: -7 hours)
 TimeSync timeManager(ntpServer1, ntpServer2, gmtOffset_sec, daylightOffset_sec);
 
 unsigned long lastPostTime = 0;
 const int interval = 300UL * 1000UL; // 5min
 
-// --- Alarm Callback ---
+// Alarm Callback
 // This function is invoked when the alarm time is reached
 void alarmCallback() {
   static unsigned long lastFire = 0;
@@ -124,12 +124,12 @@ void alarmCallback() {
   uint8_t attempts = 0;
   uint32_t reactionTime = 0;
   bool success = false;
-  const uint8_t* seq = nullptr;
-  uint8_t steps = puzzle.getCurrentSteps();;
 
   do {
     attempts++;
-    seq = puzzle.generateSequence();
+
+    uint8_t steps = puzzle.getCurrentSteps();
+    const uint8_t* seq = puzzle.generateSequence();
 
     Serial.printf("Attempt #%u: showing %u-step pattern\n", attempts, steps);
 
@@ -170,7 +170,7 @@ void alarmCallback() {
     }
   } while (!success);
 
-  // 3) Success!
+  // 3) Success
   Serial.printf("Correct in %u attempts, %lums reaction\n",
                 attempts, reactionTime);
   buzzerDriver.notify(1000, 200, 500);
@@ -193,11 +193,9 @@ void alarmCallback() {
 void setup() {
   Serial.begin(115200);
   delay(1000);
-
-  // Connect Wifi
-  wifi.begin(30000);
   
   // Initialize modules
+    wifi.begin(30000);
   ledDriver.begin();
   buzzerDriver.begin();
   buttonDriver.begin();
@@ -240,7 +238,7 @@ void loop() {
     float temperature = dhtDriver.getTemperature();
     float humidity    = dhtDriver.getHumidity();
 
-    String timestamp = timeManager.getFormattedTime();  // or millis()
+    String timestamp = timeManager.getFormattedTime();
     String payload = String("{\"timestamp\":\"") + timestamp +
                      String("\",\"temperature\":") + String(temperature, 2) +
                      String(",\"humidity\":")    + String(humidity, 2) +
@@ -251,7 +249,7 @@ void loop() {
     
     String response;
     int status = wifi.httpPost(
-      server,            // server
+      server,            // domain
       5000,              // port
       sensorPath,        // path
       payload.c_str(),   // JSON body

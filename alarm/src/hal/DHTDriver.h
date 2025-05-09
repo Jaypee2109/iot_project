@@ -10,7 +10,7 @@
  */
 class DHTDriver {
 public:
-  /** Initialize I²C and the sensor. */
+  /** Initialize pins and the sensor. */
   void begin();
 
   /** Trigger a read; returns false on error. */

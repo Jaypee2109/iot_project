@@ -12,7 +12,7 @@ ButtonDriver::ButtonDriver(std::initializer_list<uint8_t> pins, ButtonCallback c
   for (auto pin : pins) {
     _pins[index] = pin;
     _lastPressed[index] = 0;
-    // Initialize previous state to HIGH (buttons with INPUT_PULLUP are normally HIGH).
+    // Initialize previous state to HIGH.
     _prevState[index] = HIGH;
     index++;
   }
@@ -44,7 +44,7 @@ void ButtonDriver::update() {
 }
 
 void ButtonDriver::simulateButtonPress(uint8_t buttonPin) {
-  // Directly call the callback for simulation/testing.
+  // Directly call the callback for simulation.
   _callback(buttonPin);
 }
 

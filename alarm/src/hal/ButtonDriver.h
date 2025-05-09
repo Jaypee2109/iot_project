@@ -18,7 +18,7 @@ class ButtonDriver {
     ButtonDriver(std::initializer_list<uint8_t> pins, ButtonCallback callback, unsigned long debounce_ms = 200);
 
     /**
-     * Initializes the buttons (sets pin mode to INPUT_PULLUP).
+     * Initializes the buttons.
      */
     void begin();
 

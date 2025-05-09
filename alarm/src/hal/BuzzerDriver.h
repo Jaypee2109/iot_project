@@ -5,9 +5,6 @@
 
 /**
  * BuzzerDriver provides a simple interface to trigger an alarm notification.
- * 
- * Instead of running continuously, call notify() when you want to produce a
- * single beep (or tone) for a specified duration.
  */
 class BuzzerDriver {
   public:

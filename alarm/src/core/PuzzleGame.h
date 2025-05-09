@@ -33,7 +33,6 @@ public:
   /**
    * Generate a new random sequence of length getCurrentSteps(),
    * store it internally, and return a pointer to it.
-   * Valid entries are indices [0 .. getCurrentSteps()-1].
    */
   const uint8_t* generateSequence();
 
