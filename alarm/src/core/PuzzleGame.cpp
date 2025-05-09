@@ -75,7 +75,7 @@ void PuzzleGame::_adaptDifficulty() {
   bool adapted = false;
 
   // if struggling: shorten & slow down
-  if (avgA >= 3 || avgR > 3.0f) {
+  if (avgA >= 3 && avgR > 3.0f) {
     _currentSteps--;
     _blinkInterval = min(_blinkInterval + 100, 2000U);
     adapted = true;
