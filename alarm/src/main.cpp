@@ -11,8 +11,7 @@
 
 
 // Global Variables for Alarm Input
-const uint8_t maxSteps = 16;                  // Number of steps in the sequence
-uint8_t userSequence[maxSteps] = {0};         // Holds the player's input (LED indices)
+static uint8_t* userSequence  = nullptr;  // Holds the player's input (LED indices)
 volatile uint8_t inputIndex = 0;          // Next free index for player input
 volatile bool waitingForInput = false;    // Flag set when waiting for player's input
 volatile bool alarmCancel = false;        // Flag set when a button cancels the alarm warning phase
@@ -123,6 +122,9 @@ void alarmCallback() {
   uint8_t attempts = 0;
   uint32_t reactionTime = 0;
   bool success = false;
+
+    delete[] userSequence;             
+    userSequence    = new uint8_t[puzzle.getCurrentSteps()];
 
   do {
     attempts++;
