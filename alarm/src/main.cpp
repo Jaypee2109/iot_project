@@ -11,9 +11,8 @@
 
 
 // Global Variables for Alarm Input
-const uint8_t steps = 4;                  // Number of steps in the sequence
-uint8_t correctSequence[steps] = {0};     // Holds the randomly generated correct pattern (LED indices)
-uint8_t userSequence[steps] = {0};        // Holds the player's input (LED indices)
+const uint8_t maxSteps = 16;                  // Number of steps in the sequence
+uint8_t userSequence[maxSteps] = {0};         // Holds the player's input (LED indices)
 volatile uint8_t inputIndex = 0;          // Next free index for player input
 volatile bool waitingForInput = false;    // Flag set when waiting for player's input
 volatile bool alarmCancel = false;        // Flag set when a button cancels the alarm warning phase
@@ -40,15 +39,15 @@ void onButtonPressed(uint8_t buttonPin) {
   }
   else {
     // Otherwise, record the player's input
-    const uint8_t buttonMapping[steps] = {39, 38, 37, 36};
+    const uint8_t buttonMapping[4] = {39, 38, 37, 36};
     uint8_t pressedIndex = 0;
-    for (uint8_t i = 0; i < steps; i++) {
+    for (uint8_t i = 0; i < 4; i++) {
       if (buttonPin == buttonMapping[i]) {
         pressedIndex = i;
         break;
       }
     }
-    if (inputIndex < steps) {
+    if (inputIndex < puzzle.getCurrentSteps()) {
       userSequence[inputIndex] = pressedIndex;
       inputIndex++;
       Serial.print("Recorded input index: ");

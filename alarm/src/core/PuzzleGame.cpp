@@ -72,16 +72,19 @@ void PuzzleGame::_adaptDifficulty() {
   Serial.print(avgA);
   Serial.print(avgR);
   
+  bool adapted = false;
 
   // if struggling: shorten & slow down
-  if (avgA >= 3 && avgR > 5.0f) {
+  if (avgA >= 3 || avgR > 3.0f) {
     _currentSteps--;
     _blinkInterval = min(_blinkInterval + 100, 2000U);
+    adapted = true;
   }
   // if excelling: lengthen & speed up
-  else if (avgA < 2 || avgR < 3.0f) {
+  else if (!adapted && (avgA < 2 || avgR < 3.0f)) {
     _currentSteps++;
     _blinkInterval = max(_blinkInterval - 100, 200U);
+    adapted = true;
   }
 
   Serial.printf(
