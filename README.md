@@ -1,3 +1,3 @@
 # IOT final Project
 
-for demo and report go to alarm/lib
+for Project report go to alarm/lib

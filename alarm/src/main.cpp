@@ -146,7 +146,7 @@ void alarmCallback() {
 
     // Capture user input
     waitingForInput = true;
-    inputIndex = 0;
+    inputIndex = 0;   
     unsigned long startMs = millis();
     while (inputIndex < steps) {
       buttonDriver.update();
